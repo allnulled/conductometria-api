@@ -1,6 +1,6 @@
 {
   "name": "conductometria",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "API para cálculos de conceptos, fenómenos, y propagaciones de estados.",
   "main": "dist/conductometria.bundle.js",
   "scripts": {
