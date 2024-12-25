@@ -32,6 +32,9 @@ const Conductometria = class {
       });
     }
   }
+  persistIn(file) {
+    require("fs").writeFileSync(file, this.jsonify(), "utf8");
+  }
   formatear = {
     tiempo: {
       a: {
@@ -151,6 +154,32 @@ const Conductometria = class {
     fenomeno: (datos) => {
       this.tracear("propagar.fenomeno", [datos]);
       Expandir_propiedades_fijas: {
+        Corregir_fecha: {
+          if (datos.fecha) {
+            if(typeof datos.fecha === "string") {
+              datos.fecha_legible = datos.fecha;
+              datos.fecha = Timeformat_parser.parse(datos.fecha_legible);
+            }
+          }
+        }
+        Corregir_hora: {
+          if (datos.hora) {
+            if(typeof datos.hora === "string") {
+              datos.hora_legible = datos.hora;
+              datos.hora = Timeformat_parser.parse(datos.hora_legible);
+            }
+          }
+        }
+        Corregir_duracion: {
+          if (datos.duracion) {
+            if (typeof datos.duracion === "number") {
+              datos.duracion_legible = this.formatear.tiempo.a.duracionFormateada(datos.duracion);
+            } else if(typeof datos.duracion === "string") {
+              datos.duracion_legible = datos.duracion;
+              datos.duracion = this.formatear.duracion.a.tiempo(datos.duracion);
+            }
+          }
+        }
         Corregir_duracion: {
           if (datos.duracion) {
             if (typeof datos.duracion === "number") {

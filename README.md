@@ -36,9 +36,14 @@ De momento, hay algunas propiedades mágicas:
 
 - `concepto`: define el nombre del `fenomeno` y del `concepto` y del `estado` también.
 - `fecha`: texto que sigue el formato de [@allnulled/timeformat](https://github.com/allnulled/timeformat) para fechas
+   - será automáticamente traducido a objeto con `anio`, `mes` y `dia`.
+   - será automáticamente propagado a `fecha_legible`.
 - `hora`: texto que sigue el formato de [@allnulled/timeformat](https://github.com/allnulled/timeformat) para horas
+   - será automáticamente traducido a objeto con `hora`, `minuto`, `segundo` y `milisegundo`.
+   - será automáticamente propagado a `hora_legible`.
 - `duracion`: texto que sigue el formato de [@allnulled/timeformat](https://github.com/allnulled/timeformat) para duración
    - será automáticamente traducido a milisegundos.
+   - será automáticamente propagado a `duracion_legible`.
 - `duracion_legible`: campo sobreescrito. texto que sigue el formato de [@allnulled/timeformat](https://github.com/allnulled/timeformat) para duración
    - será automáticamente traducido a duración formateada.
 - `puntos`: número que se propaga por defecto del fenómeno al estado.

@@ -52,5 +52,5 @@ cm.registrar.fenomeno({
 console.log(cm.obtener.fenomenos());
 console.log(cm.obtener.conceptos());
 console.log(cm.obtener.estados());
-
 console.log(cm.jsonify());
+cm.persistIn("test.json");
