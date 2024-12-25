@@ -9,8 +9,5 @@
   },
   "keywords": [],
   "author": "allnulled",
-  "license": "WTFPL",
-  "dependencies": {
-    "@allnulled/timeformat": "^1.0.0"
-  }
+  "license": "WTFPL"
 }
