@@ -122,4 +122,5 @@ cm.persistIn("test.json");
 ## Tips para el editor en línea
 
 - No tengo nada para mostrar la consola de momento.
-- 
+- El `this` es el componente `open-editor` que es un proyecto no documentado todavía xD pero que está usándose en otros proyectos
+- Desde el `this` puedes acceder a las APIs inyectadas vía `Vue.prototype.$*`:
