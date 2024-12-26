@@ -1307,9 +1307,11 @@
 
 const Conductometria = class {
   constructor(opciones = {}) {
+    this._uuid = 0;
     this.fenomenos = [];
     this.conceptos = {};
     this.estados = {};
+    this.tipos = {};
     this.opciones = Object.assign({}, opciones);
   }
   static crear(...args) {
@@ -1318,6 +1320,14 @@ const Conductometria = class {
   die(...args) {
     console.log(...args);
     process.exit();
+  }
+  uuid(prependice = "") {
+    if(!(prependice in this.tipos)) {
+      this.tipos[prependice] = [];
+    }
+    const _uuid = ++this._uuid;
+    this.tipos[prependice].push(_uuid);
+    return _uuid + "@" + prependice;
   }
   tracear(method, args) {
     if (this.opciones.tracear) {
@@ -1330,12 +1340,14 @@ const Conductometria = class {
         fenomenos: this.fenomenos,
         conceptos: this.conceptos,
         estados: this.estados,
+        tipos: this.tipos,
       }, null, 2);
     } else {
       return JSON.stringify({
         fenomenos: this.fenomenos,
         conceptos: this.conceptos,
         estados: this.estados,
+        tipos: this.tipos,
       });
     }
   }
@@ -1435,6 +1447,9 @@ const Conductometria = class {
       if (typeof nombreConcepto !== "string") {
         throw new Error("Se requiere «datos» de tener un «concepto» de tipo texto en «propagar.estado»");
       }
+      Corregir_uuid: {
+        Object.assign(datos, { uuid: this.uuid("estado") });
+      }
       if (!(nombreConcepto in this.estados)) {
         this.estados[nombreConcepto] = {
           propagaciones: 0,
@@ -1497,6 +1512,9 @@ const Conductometria = class {
             }
           }
         }
+        Corregir_uuid: {
+          datos.uuid = this.uuid("fenómeno");
+        }
       }
       Propagar_estado: {
         this.propagar.estado(datos);
@@ -1547,7 +1565,8 @@ const Conductometria = class {
       Inicializacion: {
         if (!(datos.concepto in this.conceptos)) {
           this.conceptos[datos.concepto] = {
-            ...datos
+            ...datos,
+            uuid: this.uuid("concepto")
           };
         }
       }

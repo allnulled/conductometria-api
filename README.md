@@ -2,6 +2,14 @@
 
 API para mediciones de conducta.
 
+## Editor en línea
+
+Usa la API directamente desde tu dispositivo en:
+
+```
+https://allnulled.github.io/conductometria-api/index.html
+```
+
 ## Instalación
 
 ```sh
@@ -110,3 +118,8 @@ console.log(cm.obtener.estados());
 console.log(cm.jsonify());
 cm.persistIn("test.json");
 ```
+
+## Tips para el editor en línea
+
+- No tengo nada para mostrar la consola de momento.
+- 
