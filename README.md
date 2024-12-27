@@ -158,6 +158,8 @@ await this.$windowsPort.createWindow("Hello, window!", `
 });
 ```
 
+Los procesos iniciados por `$windowsPort` pueden verse en `$process.manager.processes` y su `name` coincide con el de `$windowsPort.active_windows[name]`. De esta forma puedes acceder al componente de ventana que ha iniciado el proceso. Quizá más adelante se hace un shortcut.
+
 ### 2. ¿Cómo crear diálogos espontáneos?
 
 La API de `src/components/c-dialogs/c-dialogs.js` se encarga de dejarte poder hacer:
