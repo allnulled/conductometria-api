@@ -133,18 +133,25 @@ Esto es un ejemplo de cómo crear un proceso de ventana:
 La API de `src/components/open-editor/windows-port.js` se encarga de dejarte poder hacer:
 
 ```js
-await this.$windowsPort.createWindow(`
+await this.$windowsPort.createWindow("Hello, window!", `
   <div>
     <div>
-      <input type="text" style="width:100%;" v-model="title" />
-      <div>{{ title }}</div>
+      <input type="text" style="width:100%;" v-model="value" />
+      <div>{{ value }}</div>
+      <button v-on:click="() => port.close()">Accept</button>
     </div>
   </div>
 `, function() {
   return {
+    props: {
+      port: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
-        title: ""
+        value: "Texto de la caja de texto"
       };
     }
   };
