@@ -6,9 +6,7 @@ API para mediciones de conducta.
 
 Usa la API directamente desde tu dispositivo en:
 
-```
-https://allnulled.github.io/conductometria-api/index.html
-```
+- [https://allnulled.github.io/conductometria-api/index.html](https://allnulled.github.io/conductometria-api/index.html)
 
 ## Instalación
 
