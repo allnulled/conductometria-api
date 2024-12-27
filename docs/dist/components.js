@@ -750,8 +750,7 @@ Vue.component("open-editor", {
                             </template>
                             <template v-else-if="nodo_actual_es_directorio">
                                 <div class="contenedor_de_lista_de_nodos">
-                                    <ul class="no_list lista_de_nodos"
-                                        style="padding: 2px 4px;">
+                                    <ul class="no_list lista_de_nodos">
                                         <template v-if="nodo_actual_subnodos && nodo_actual_subnodos.length">
                                             <li v-for="subnodo, subnodo_index in nodo_actual_subnodos"
                                                 v-bind:key="'nodo_' + nodo_actual + '_subnodo-' + subnodo_index">
@@ -874,7 +873,7 @@ Vue.component("open-editor", {
       iconos_izquierdos: [],
       editor_de_codigo_familia_de_fuente: "monospace",
       editor_de_codigo_tamanio_de_fuente: 10,
-      editor_de_codigo_posicion_cursor: undefined
+      editor_de_codigo_posicion_cursor: undefined,
     }
   },
   methods: {
@@ -1101,7 +1100,7 @@ Vue.component("open-editor", {
           indent_inner_html: false,
           comma_first: false,
           e4x: false,
-          indent_empty_lines: false
+          indent_empty_lines: false,
         };
         if (this.nodo_actual.endsWith(".js")) {
           this.nodo_actual_contenido_de_fichero = this.$window.beautifier.js(this.nodo_actual_contenido_de_fichero, options);

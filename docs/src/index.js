@@ -10,26 +10,29 @@ const main = async function () {
     try {
         Import_scripts: {
             if (process.env.NODE_ENV === "test") {
-                importer.setTotal(58);
+                importer.setTotal(64);
                 importer.setTimeout(1000 * 2);
                 await Promise.all([
                     importer.scriptSrc("src/external/socket.io-client.js"),
+                    importer.scriptSrc("src/external/beautifier.js"),
                     importer.scriptSrc("src/external/vue-v2.js"),
                     importer.scriptSrc("src/external/basic-logger.js"),
                     importer.scriptSrc("src/external/ensure.js"),
                     importer.scriptSrc("src/external/ufs.js"),
                     importer.scriptSrc("src/external/store.unbundled.js"),
-                    importer.scriptSrc("src/external/webmarket.js"),
+                    importer.scriptSrc("src/external/browsie.js"),
                     importer.scriptSrc("src/external/sql-wasm.js"),
                     importer.scriptSrc("src/external/sqlite-polyfill.js"),
                     importer.scriptSrc("src/external/sqlite-data-system.unbundled.js"),
+                    importer.scriptSrc("src/external/process-interface.js"),
                     importer.scriptSrc("src/external/conductometria.bundle.js"),
                 ]);
                 await Promise.all([
                     importer.scriptSrc("src/components/c-badges/c-badges.js"),
                     importer.importVueComponent("src/components/c-dialogs/c-dialogs"),
-                    importer.importVueComponent("src/components/open-editor/open-editor"),
+                    importer.importVueComponent("src/components/open-editor/windows-port"),
                     importer.importVueComponent("src/components/open-editor/open-editor-iconset"),
+                    importer.importVueComponent("src/components/open-editor/open-editor"),
                     importer.importVueComponent("src/components/c-title/c-title"),
                     importer.importVueComponent("src/components/home-page/home-page"),
                     importer.importVueComponent("src/components/app/app"),
@@ -59,6 +62,11 @@ const main = async function () {
             }
         }
         Create_app: {
+            const processInterface = new ProcessInterface();
+            const processManager = new processInterface.ProcessManager();
+            Vue.prototype.$process = {};
+            Vue.prototype.$process.interface = processInterface;
+            Vue.prototype.$process.manager = processManager;
             Vue.prototype.$vue = Vue;
             Vue.prototype.$dialogs = undefined;
             Vue.prototype.$ufs = undefined;
@@ -67,6 +75,7 @@ const main = async function () {
             Vue.prototype.$importer = importer;
             Vue.prototype.$socketio = io;
             Vue.prototype.$fetch = fetch;
+            Vue.prototype.$ensure = ensure;
             Vue.prototype.$store = UniversalStore.create();
             Conflictive_point: {
                 // Vue.prototype.$sqlite = new SQLitePolyfill("litestarter.main.db", "src/external/sql-wasm.wasm");

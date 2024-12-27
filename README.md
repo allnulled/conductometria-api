@@ -124,3 +124,27 @@ cm.persistIn("test.json");
 - No tengo nada para mostrar la consola de momento.
 - El `this` es el componente `open-editor` que es un proyecto no documentado todavía xD pero que está usándose en otros proyectos
 - Desde el `this` puedes acceder a las APIs inyectadas vía `Vue.prototype.$*`:
+- Usa el `await this.$ufs.require(file)` para importar ficheros del sistema de fichero simulado.
+   - No hay ni `module.exports` ni `require`, pero puedes tirar con eso.
+- Puedes acceder a `Conductometria` desde cualquier fichero.
+
+Esto es un ejemplo de cómo crear un proceso de ventana:
+
+```js
+await this.$windowsPort.createWindow(`
+  <div>
+    <div>
+      <input type="text" style="width:100%;" v-model="title" />
+      <div>{{ title }}</div>
+    </div>
+  </div>
+`, function() {
+  return {
+    data() {
+      return {
+        title: ""
+      };
+    }
+  };
+});
+```

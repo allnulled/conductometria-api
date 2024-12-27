@@ -20,22 +20,19 @@
                         </div>
                     </template>
                     <template v-if="nodo_actual_es_fichero">
-                        <div class="icono_contextual fondo_azul"
-                            title="Guardar estado actual"
-                            v-on:click="() => guardar_fichero_actual()">
-                            Save
-                        </div>
                         <div class="icono_contextual fondo_rosa"
                             title="Cargar estado actual"
                             v-on:click="() => cargar_fichero_actual()">
                             Load
                         </div>
                     </template>
-                    <div class="icono_contextual fondo_verde"
-                        title="Copiar fichero o directorio"
-                        v-on:click="copiar_fichero">
-                        Copy
-                    </div>
+                    <template v-if="nodo_actual !== '/'">
+                        <div class="icono_contextual fondo_verde"
+                            title="Copiar fichero o directorio"
+                            v-on:click="copiar_fichero">
+                            Copy
+                        </div>
+                    </template>
                     <template v-if="nodo_actual_es_fichero">
                         <div class="icono_contextual fondo_verde"
                             v-if="['/','/kernel'].indexOf(nodo_actual) === -1"
@@ -75,8 +72,7 @@
                             </template>
                             <template v-else-if="nodo_actual_es_directorio">
                                 <div class="contenedor_de_lista_de_nodos">
-                                    <ul class="no_list lista_de_nodos"
-                                        style="padding: 2px 4px;">
+                                    <ul class="no_list lista_de_nodos">
                                         <template v-if="nodo_actual_subnodos && nodo_actual_subnodos.length">
                                             <li v-for="subnodo, subnodo_index in nodo_actual_subnodos"
                                                 v-bind:key="'nodo_' + nodo_actual + '_subnodo-' + subnodo_index">
@@ -144,6 +140,11 @@
                             v-on:click="exportar_como_url">
                             Export
                         </div>
+                        <div class="icono_contextual fondo_azul"
+                            title="Guardar estado actual"
+                            v-on:click="() => guardar_fichero_actual()">
+                            Save
+                        </div>
                     </template>
                     <template v-if="nodo_actual_es_directorio">
                         <div class="icono_contextual fondo_azul"
@@ -184,5 +185,6 @@
             </div>
         </div>
     </div>
+    <windows-port :contexto="this"></windows-port>
     <c-dialogs :contexto="this"></c-dialogs>
 </div>

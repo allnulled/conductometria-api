@@ -14,7 +14,9 @@ Vue.component("open-editor", {
       iconos_izquierdos: [],
       editor_de_codigo_familia_de_fuente: "monospace",
       editor_de_codigo_tamanio_de_fuente: 10,
-      editor_de_codigo_posicion_cursor: undefined
+      editor_de_codigo_posicion_cursor: undefined,
+      console_hooker: undefined,
+      console_logs: []
     }
   },
   methods: {
@@ -201,6 +203,7 @@ Vue.component("open-editor", {
     async ejecutar_fichero_actual() {
       try {
         console.log("ejecutar_fichero_actual");
+        // @TODO: start process
         const AsyncFunction = (async function () { }).constructor;
         const function_content = this.nodo_actual_contenido_de_fichero;
         const execution = new AsyncFunction(function_content);
@@ -241,7 +244,9 @@ Vue.component("open-editor", {
           indent_inner_html: false,
           comma_first: false,
           e4x: false,
-          indent_empty_lines: false
+          indent_empty_lines: false,
+          console_hooker: undefined,
+          console_logs: []
         };
         if (this.nodo_actual.endsWith(".js")) {
           this.nodo_actual_contenido_de_fichero = this.$window.beautifier.js(this.nodo_actual_contenido_de_fichero, options);
@@ -346,6 +351,9 @@ Vue.component("open-editor", {
       } catch (error) {
         this.gestionar_error(error);
       }
+    },
+    mostrar_mensaje_de_consola(...args) {
+      this.console_logs.push(...args);
     }
   },
   watch: {
@@ -391,5 +399,6 @@ Vue.component("open-editor", {
   unmounted() {
     console.log("unmounted");
     this.desregistrar_evento_de_redimensionar();
+    this.deshookear_consola();
   }
 });

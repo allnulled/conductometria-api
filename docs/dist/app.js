@@ -20011,6 +20011,61 @@ Conductometria.default = Conductometria;
 return Conductometria;
 });
 
+(function (factory) {
+  const mod = factory();
+  if (typeof window !== 'undefined') {
+    window['ConsoleHooker'] = mod;
+  }
+  if (typeof global !== 'undefined') {
+    global['ConsoleHooker'] = mod;
+  }
+  if (typeof module !== 'undefined') {
+    module.exports = mod;
+  }
+})(function () {
+
+  return function (callback) {
+    const original = console.log;
+    console.log = function (...args) {
+      if (typeof callback === 'function') {
+        callback(...args);
+      }
+      original.apply(console, args);
+    };
+    const restore = function restore() {
+      console.log = original;
+    };
+    return { restore, original };
+  };
+
+});
+(function (factory) {
+  const mod = factory();
+  if (typeof window !== 'undefined') {
+    window['ConsoleHookerManager'] = mod;
+  }
+  if (typeof global !== 'undefined') {
+    global['ConsoleHookerManager'] = mod;
+  }
+  if (typeof module !== 'undefined') {
+    module.exports = mod;
+  }
+})(function () {
+
+  return {
+      original: console.log,
+      restore: () => {
+          // @OK
+      },
+      hook: (callback) => {
+          Vue.prototype.$console.restore();
+          const { original, restore } = ConsoleHooker(callback);
+          Vue.prototype.$console.original = original;
+          Vue.prototype.$console.restore = restore;
+      }
+  }
+
+});
 (function(factory) {
   const mod = factory();
   if(typeof window !== 'undefined') {
@@ -20763,8 +20818,7 @@ Vue.component("open-editor", {
                             </template>
                             <template v-else-if="nodo_actual_es_directorio">
                                 <div class="contenedor_de_lista_de_nodos">
-                                    <ul class="no_list lista_de_nodos"
-                                        style="padding: 2px 4px;">
+                                    <ul class="no_list lista_de_nodos">
                                         <template v-if="nodo_actual_subnodos && nodo_actual_subnodos.length">
                                             <li v-for="subnodo, subnodo_index in nodo_actual_subnodos"
                                                 v-bind:key="'nodo_' + nodo_actual + '_subnodo-' + subnodo_index">
@@ -20887,7 +20941,9 @@ Vue.component("open-editor", {
       iconos_izquierdos: [],
       editor_de_codigo_familia_de_fuente: "monospace",
       editor_de_codigo_tamanio_de_fuente: 10,
-      editor_de_codigo_posicion_cursor: undefined
+      editor_de_codigo_posicion_cursor: undefined,
+      console_hooker: undefined,
+      console_logs: []
     }
   },
   methods: {
@@ -21114,7 +21170,9 @@ Vue.component("open-editor", {
           indent_inner_html: false,
           comma_first: false,
           e4x: false,
-          indent_empty_lines: false
+          indent_empty_lines: false,
+          console_hooker: undefined,
+          console_logs: []
         };
         if (this.nodo_actual.endsWith(".js")) {
           this.nodo_actual_contenido_de_fichero = this.$window.beautifier.js(this.nodo_actual_contenido_de_fichero, options);
@@ -21219,6 +21277,18 @@ Vue.component("open-editor", {
       } catch (error) {
         this.gestionar_error(error);
       }
+    },
+    hookear_consola() {
+      const openEditor = this;
+      this.console_hooker = this.$console.hook((...args) => {
+        openEditor.mostrar_mensaje_de_consola(...args);
+      });
+    },
+    deshookear_consola() {
+      this.console_hooker.restore();
+    },
+    mostrar_mensaje_de_consola(...args) {
+      this.console_logs.push(...args);
     }
   },
   watch: {
@@ -21242,6 +21312,7 @@ Vue.component("open-editor", {
   async mounted() {
     try {
       console.log("mounted");
+      this.hookear_consola();
       Vue.prototype.$ufs = UFS_manager.create();
       Vue.prototype.$ufs.require = (path, parameters = []) => {
           const filepath = Vue.prototype.$ufs.resolve_path(path);
@@ -21264,6 +21335,7 @@ Vue.component("open-editor", {
   unmounted() {
     console.log("unmounted");
     this.desregistrar_evento_de_redimensionar();
+    this.deshookear_consola();
   }
 });
 Vue.component("open-editor-iconset", {
