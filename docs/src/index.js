@@ -4,8 +4,6 @@ window.process = {
         NODE_ENV: (window.location.href.startsWith("https") ? "production" : "test")
     }
 };
-process.env.NODE_ENV = "production";
-process.env.NODE_ENV = "test";
 const main = async function () {
     try {
         Import_scripts: {
