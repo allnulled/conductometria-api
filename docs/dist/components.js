@@ -776,6 +776,11 @@ Vue.component("open-editor", {
                 </div>
                 <div class="panel_derecho">
                     <template v-if="nodo_actual_es_fichero">
+                        <div class="icono_contextual fondo_azul"
+                            title="Guardar estado actual"
+                            v-on:click="() => guardar_fichero_actual()">
+                            Save
+                        </div>
                         <div class="icono_contextual fondo_rojo"
                             title="Ejecuta el código"
                             v-on:click="() => ejecutar_fichero_actual()">
@@ -814,11 +819,6 @@ Vue.component("open-editor", {
                             title="Exportar como URL"
                             v-on:click="exportar_como_url">
                             Export
-                        </div>
-                        <div class="icono_contextual fondo_azul"
-                            title="Guardar estado actual"
-                            v-on:click="() => guardar_fichero_actual()">
-                            Save
                         </div>
                     </template>
                     <template v-if="nodo_actual_es_directorio">

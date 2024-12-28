@@ -50,9 +50,8 @@ De momento, hay algunas propiedades mágicas:
 - `duracion`: texto que sigue el formato de [@allnulled/timeformat](https://github.com/allnulled/timeformat) para duración
    - será automáticamente traducido a milisegundos.
    - será automáticamente propagado a `duracion_legible`.
-- `duracion_legible`: campo sobreescrito. texto que sigue el formato de [@allnulled/timeformat](https://github.com/allnulled/timeformat) para duración
-   - será automáticamente traducido a duración formateada.
-- `puntos`: número que se propaga por defecto del fenómeno al estado.
+- `categorias`: no hace nada de momento. Pensado para búsquedas.
+- `puntos`: número que se propaga por defecto del fenómeno al estado. De fenómeno a fenómeno (o concepto a concepto) no se propaga por defecto, hay que propagarlo en el `produce` del origen.
 - `produce`: mapa con el *concepto propagado* y la *función propagadora*. Esta función:
    - recibe coger datos de su **fenómeno causal** y de su **concepto causal**
    - retorna el nuevo fenómeno que se propaga.
