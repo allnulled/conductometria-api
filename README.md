@@ -118,4 +118,4 @@ cm.persistIn("test.json");
 
 ## Basado en open-editor
 
-La aplicación en línea de [`allnulled@conductometria-api`](https://github.com/allnulled/conductometria-api) está basada en la aplicación de [`allnulled@open-editor](https://github.com/allnulled/open-editor). De hecho, [`open-editor`](https://github.com/allnulled/open-editor) incorpora *innecesariamente* (es decir, *no tiene dependientes*) a [`conductometria-api`](https://github.com/allnulled/conductometria-api).
+La aplicación en línea de [`allnulled@conductometria-api`](https://github.com/allnulled/conductometria-api) está basada en la aplicación de [`allnulled@open-editor`](https://github.com/allnulled/open-editor). De hecho, [`open-editor`](https://github.com/allnulled/open-editor) incorpora *innecesariamente* (es decir, *no tiene dependientes*) a [`conductometria-api`](https://github.com/allnulled/conductometria-api).
