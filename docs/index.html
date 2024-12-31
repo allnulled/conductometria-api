@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-    <title>Conductometria UI</title>
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Open-editor</title>
 </head>
 
 <body>
@@ -43,17 +43,17 @@
             border-radius: 4pt;
             overflow: hidden;
         }
-        
+
         #intersitial_loader_bar {
             height: 100%;
             min-height: calc(var(--intersitial-loader-height) + 1px);
-            font-size: 12px;    
+            font-size: 12px;
             background-color: #0F0;
             background: linear-gradient(to bottom,
-                var(--intersitial-loader-bar-color-1),
-                var(--intersitial-loader-bar-color-2) 40%,
-                var(--intersitial-loader-bar-color-2) 60%,
-                var(--intersitial-loader-bar-color-1) 100%);
+                    var(--intersitial-loader-bar-color-1),
+                    var(--intersitial-loader-bar-color-2) 40%,
+                    var(--intersitial-loader-bar-color-2) 60%,
+                    var(--intersitial-loader-bar-color-1) 100%);
             box-shadow: inset 0 -2px 5px rgba(255, 255, 255, 0.3);
             width: 0%;
             transition: width .2s linear;
@@ -66,9 +66,11 @@
             right: 0;
             text-align: center;
             font-size: 12px;
-            color: gold: font-family: Arial;
+            color: gold;
+            font-family: Arial;
             font-size: 10px;
             font-family: monospace;
+            font-family: Arial;
             border: 0px solid #888;
             color: blue;
             text-shadow: 0 0 1px blue;
@@ -88,17 +90,19 @@
             background-color: #222;
             color: white;
         }
+
         @font-face {
             font-family: "LinuxLibertine";
             src: url("src/fonts/linux_libertine/LinLibertine_R.ttf");
         }
+
         #intersitial_overlayer_1 {
             position: fixed;
             top: 0;
             bottom: 0;
             left: 10px;
             right: 10px;
-            background-color: rgba(0,5,10,0.9);
+            background-color: rgba(0, 5, 10, 0.9);
             color: white;
             display: flex;
             flex-direction: column;
@@ -109,18 +113,19 @@
             border-left: 1px solid white;
             box-shadow: 0 0 4px white;
         }
+
         #intersitial_overlayer_1_box {
             font-family: Arial, LinuxLibertine;
             font-size: 18px;
-            background-color: rgba(255,0,0,0.2);
+            background-color: rgba(0, 0, 225, 0.2);
             color: white;
             padding: 20px;
-            border: 1px solid white;
-            border-radius: 4pt;
-            box-shadow: 0 0 3px red;
+            border: 1px solid #FFF4;
+            border-radius: 2pt;
             text-shadow: 0 0 1px white;
             text-align: center;
         }
+
         #intersitial_overlayer_1_box a,
         #intersitial_overlayer_1_box a:hover,
         #intersitial_overlayer_1_box a:link,
@@ -129,23 +134,25 @@
             color: inherit;
             text-decoration: none;
         }
-        #intersitial_overlayer_title {
-        }
-        #intersitial_overlayer_pretitle {
-            margin-bottom: 12px;
-        }
+
+        #intersitial_overlayer_title {}
+
+        #intersitial_overlayer_pretitle {}
     </style>
     <div id="app"></div>
     <div id="intersitial">
-        
+
         <pre id="intersitial_modules_trace"></pre>
         <div id="intersitial_overlayer_1">
             <span id="intersitial_overlayer_1_box">
-                <div id="intersitial_overlayer_pretitle"><a href="#">open-editor</a></div>
-                <div id="intersitial_overlayer_title">+ <a href="">conductometria-api</a></div>
+                <div id="intersitial_overlayer_title"><a href="://allnulled.github.io/open-editor">allnulled.github.io/open-editor</a></div>
             </span>
+            <div style="padding: 12px; text-align: center; color: #FFF8;">
+                <span>...coming in <span id="intersitial_countdown_seconds">3</span>...</span>
+            </div>
             <div style="padding: 4px;width:100%;">
-                <div id="intersitial_loader" style="">
+                <div id="intersitial_loader"
+                    style="">
                     <div id="intersitial_loader_bar"></div>
                     <div id="intersitial_message">
                         <span>Loaded <span id="intersitial_modules_loaded"></span>/<span id="intersitial_modules_all"></span> modules</span>
@@ -154,6 +161,27 @@
             </div>
         </div>
     </div>
+    <script>
+        window.startIntersitialCountdown = function () {
+            let countdown = 4;
+            const decrease = () => {
+                const countdownerElement = document.querySelector("#intersitial_countdown_seconds");
+                if (countdownerElement) {
+                    countdown--;
+                    if (countdown <= 0) {
+                        countdownerElement.textContent = "Modules are taking too much.";
+                    } else {
+                        countdownerElement.textContent = countdown;
+                    }
+                }
+            };
+            const intervalId = setInterval(decrease, 1000);
+            decrease();
+            setTimeout(() => {
+                clearInterval(intervalId);
+            }, 1000 * 2.5);
+        }
+    </script>
     <script src="src/external/importer.js"></script>
     <script src="src/index.js"></script>
 </body>
